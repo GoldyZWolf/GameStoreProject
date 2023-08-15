@@ -1,0 +1,1 @@
+SELECT * FROM `gamesstoredb`.`user` LIMIT 1000;

@@ -1,0 +1,100 @@
+### get all games - with no token - ok
+GET http://localhost:8081/api/v1/games
+Content-Type: application/json
+
+### hello world - with no token - unauthorized
+POST http://localhost:8081/api/v1/games
+Content-Type: application/json
+
+{
+    "gameTitle": "stars",
+    "gameDetail": "Stars",
+    "gameGenre": "Action",
+    "price": 200.0
+}
+
+
+### with  token - authorized 
+GET http://localhost:8081/api/v1/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjkwOTMyNDM5LCJpYXQiOjE2OTA4OTY0MzksImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV19.vrfjkObN_06GwcqX5jjmL9v18kHoDyehcZThncHkJxo
+
+
+### Register as a user - SUCCESS
+POST http://localhost:8081/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "username": "test2",
+    "email": "test2@test.com",
+    "password": "password"
+}
+
+
+### Register - SUCCESS
+POST http://localhost:8081/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "username": "test4",
+    "email": "test4@test.com",
+    "password": "password"
+}
+
+### try to Authenticate with wrong credentials - fail - Unauthorized
+POST http://localhost:8081/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+    "email": "test4@test.com",
+    "password": "password"
+}
+
+### Authenticate - success - get a token - as a ROLE_USER /*    "email": "test2@test.com",*/
+POST http://localhost:8081/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+    
+    "email": "test2@test.com",
+    "password": "password"
+}
+
+### Authenticate - success - get an admin token
+POST http://localhost:8081/api/v1/auth/authenticate
+Content-Type: application/json
+
+{
+    "email": "admin@admin.com",
+    "password": "password"
+}
+
+
+### Get all users - as a regular user, but only with token (this is only an example)
+GET http://localhost:8081/api/v1/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjkwOTMyNTM5LCJpYXQiOjE2OTA4OTY1MzksImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dfQ.XEeuf4t14Ko7sulxLd4n3USXo-PtLHn9Blj9Z_uMDog
+
+### Add a user - only by admin
+POST http://localhost:8081/api/v1/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiZXhwIjoxNjkwOTMyNTM5LCJpYXQiOjE2OTA4OTY1MzksImF1dGhvcml0aWVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dfQ.XEeuf4t14Ko7sulxLd4n3USXo-PtLHn9Blj9Z_uMDog
+
+{   
+    "username": "added_by_admin",
+    "email": "added_by_admin@admin2.com",
+    "password": "password"
+}
+
+### Home
+GET http://localhost:8081/api/v1/auth/home
+Content-Type: application/json
+
+### Logout
+GET http://localhost:8081/api/v1/auth/logout
+Content-Type: application/json
+
+{}
+
+### DOCS
+GET http://localhost:8081/api-docs
